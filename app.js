@@ -8,8 +8,12 @@ app.use(express.urlencoded());
 app.post('/less', function( req, res ){
   var less_input = req.body.less;
   less.render(less_input, function( e, css ){
-    if (e) throw e;
-    res.send(css);
+    if (e) {
+      res.send('Line '+e.line+': '+e.message);
+      console.log('there was an error!', e);
+    }else {
+      res.send(css);
+    }
   });
 });
 
